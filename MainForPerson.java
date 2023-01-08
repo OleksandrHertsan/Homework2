@@ -1,13 +1,22 @@
 public class MainForPerson {
 
     public static void main(String[] args) {
-        Person person = new Person();
+        Person person = new Person() {
+            @Override
+            public void die() {
+
+            }
+        };
         person.name = "Alex";
         person.age = 19;
-        person.height = "2 meters";
+        person.height = 200;
         person.weight = 100;
 
-        Person secondPerson = new Person();
+        Person secondPerson = new Person() {
+            @Override
+            public void die() {
+            }
+        };
         person.info();
 
         PensionFund statePensionFund = new PensionFund("Bank1", true, "15-02-1992");
@@ -18,6 +27,13 @@ public class MainForPerson {
 
         System.out.println(statePension);
         System.out.println(notStatePension);
+
+        Worker worker = new Worker("Vasya", 49, 175, 86);
+        worker.setMinSalary(1300);
+        worker.setMaxSalary(2800);
+        double workersPension;
+        workersPension = worker.calculatePension();
+        System.out.println(workersPension);
 
     }
 
