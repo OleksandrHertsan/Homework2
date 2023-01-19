@@ -19,8 +19,8 @@ public class MainForPerson {
         };
         person.info();
 
-        PensionFund statePensionFund = new PensionFund("Bank1", true, "15-02-1992");
-        PensionFund notStatePensionFund = new PensionFund("Bank2", false, "30-10-2005");
+        PensionFund statePensionFund = new PensionFund("Bank1", TypeOfPension.State, "15-02-1992");
+        PensionFund notStatePensionFund = new PensionFund("Bank2", TypeOfPension.notState, "30-10-2005");
 
         double statePension = statePensionFund.calculatePension(25, 1500.0, 2800.0);
         double notStatePension = notStatePensionFund.calculatePension(25, 1500.0, 2800.0);

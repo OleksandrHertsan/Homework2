@@ -1,30 +1,64 @@
+import java.util.Objects;
+
 public class PensionFund {
 
       private static final double pensionCoefficient = 0.02; //коэфицент
-      private static final int average_Salary = 1500;
+      private static double average_Salary = 1500;
 
       private String fundName;
-      private boolean isState;
+
       private final String date;
 
-      public PensionFund(String fundName, boolean isStatePension, String date) {
+      private TypeOfPension type;
+
+      public PensionFund(String fundName, TypeOfPension type, String date) {
           this.fundName = fundName;
-          this.isState = isStatePension;
           this.date = date;
+          this.type = type;
       }
 
       public double calculatePension(int age, double minSalary, double maxSalary) {
-          if (isState) {
-              double averageSalary = AverageUtils.findAverageOfTwoNumbers(maxSalary, minSalary);
-              return averageSalary * age * pensionCoefficient;
-          } else {
-              double averageSalary = AverageUtils.findAverageOfThreeNumbers(minSalary, maxSalary, average_Salary);
+          double averageSalary;
+          switch (type){
+              case State:
+                  averageSalary = AverageUtils.findAverageOfNumbers(minSalary, maxSalary);
+                  break;
+              case notState:
+                  averageSalary = AverageUtils.findAverageOfNumbers(minSalary, maxSalary, average_Salary);
+                  break;
+              case scam:
+                  averageSalary = 0;
+              default:
+                  averageSalary = 0;
+          }
               return averageSalary * age * average_Salary;
           }
 
-      }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PensionFund that = (PensionFund) o;
+        return Objects.equals(fundName, that.fundName) && Objects.equals(date, that.date) && type == that.type;
+    }
 
-      }
+    @Override
+    public int hashCode() {
+        return Objects.hash(fundName, date, type);
+    }
+
+    @Override
+    public String toString() {
+        return "PensionFund{" +
+                "fundName='" + fundName + '\'' +
+                ", date='" + date + '\'' +
+                ", type=" + type +
+                '}';
+    }
+}
+
+
+
 
 
 
