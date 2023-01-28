@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Objects;
+
 public abstract class Person {
 
     String name;
@@ -7,34 +10,13 @@ public abstract class Person {
     int height;
 
     int weight;
+    private List<Kids> kids;
 
-    public Person(String name, int age, int height, int weight) {
+    public Person(String name) {
         this.name = name;
         this.age = age;
         this.height = height;
         this.weight = weight;
-    }
-
-    public Person() {
-
-    }
-
-
-    public  void info() {
-        System.out.println("Этого человека зовут " + name + ", ему " + age + " лет, его рост равен " + height + ", его вес равен " + weight + " кг");
-        System.out.println("Идти на работу?");
-        if (age < 18 || age > 70) {
-            System.out.println("Отдыхаю дома");
-        }
-        else {
-            System.out.println("Работаю(");
-        }
-    }
-
-    private int money() {
-        int money = 20000;
-        return money;
-        //Ничего такого не произошло, просто попросил написать return
     }
 
     public String getName() {
@@ -42,12 +24,7 @@ public abstract class Person {
     }
 
     public void setName(String name) {
-        if(name.length() >= 2){
-            this.name = name;
-        }
-        else {
-            System.err.println("Error. Name is short");
-        }
+        this.name = name;
     }
 
     public int getAge() {
@@ -55,12 +32,7 @@ public abstract class Person {
     }
 
     public void setAge(int age) {
-        if (age > 0 && age < 110) {
-            this.age = age;
-        }
-        else {
-            System.err.println("Incorrect age");
-        }
+        this.age = age;
     }
 
     public int getHeight() {
@@ -68,11 +40,7 @@ public abstract class Person {
     }
 
     public void setHeight(int height) {
-        if (height > 40) {
-            this.height = height;
-        } else {
-            System.err.println("Error. Person is too short");
-        }
+        this.height = height;
     }
 
     public int getWeight() {
@@ -80,17 +48,69 @@ public abstract class Person {
     }
 
     public void setWeight(int weight) {
-        if (weight > 45) {
-            this.weight = weight;
-        } else {
-            System.err.println("Error. Weight is too low");
-        }
+        this.weight = weight;
     }
 
+    public List<Kids> getKids() {
+        return kids;
+    }
 
+    public void setKids(List<Kids> kids) {
+        this.kids = kids;
+    }
 
     public abstract void die();
 
-}
+    public void showKids() {
+        System.out.println("I have " + kids.size() + " kids");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age && height == person.height && weight == person.weight && Objects.equals(name, person.name) && Objects.equals(kids, person.kids);
+    }
+
+    public void info() {
+        System.out.println(name);
+        System.out.println(age);
+        System.out.println(height);
+        System.out.println(weight);
+
+    }
+
+    public void goToWork() {
+        if (age < 18 || age > 70) {
+            System.out.println("Отдыхаю дома");
+        } else {
+            System.out.println("Работаю(");
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + age;
+        result = 31 * result + height;
+        result = 31 * result + weight;
+        result = 31 * result + (kids != null ? kids.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", kids=" + kids +
+                '}';
+    }
+
+    }
+
 
 
