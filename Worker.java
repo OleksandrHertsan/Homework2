@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Worker extends Person implements AbleToCalculatePension {
 
@@ -7,7 +6,8 @@ public class Worker extends Person implements AbleToCalculatePension {
     private double maxSalary;
     private Month month;
     private Sex sex;
-    private List<Company> job;
+    private List<Company> previousJob;
+    private Set<PensionFund> pensionFundSet;
 
     public Worker(String name) {
         super(name);
@@ -50,14 +50,27 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.sex = sex;
     }
 
-    public List<Company> getJob() {
-        return job;
+    public List<Company> getPreviousJob() {
+        if (previousJob == null) {
+            previousJob = new ArrayList<>();
+        }
+        return previousJob;
     }
 
-    public void setJob(List<Company> job) {
-        this.job = job;
+    public void setPreviousJob(List<Company> previousJob) {
+        this.previousJob = previousJob;
     }
 
+    public Set<PensionFund> getPensionFundSet() {
+        if (pensionFundSet == null){
+            pensionFundSet = new HashSet<>();
+        }
+        return pensionFundSet;
+    }
+
+    public void setPensionFundSet(Set<PensionFund> pensionFundSet){
+        this.pensionFundSet = pensionFundSet;
+    }
 
     public void setNewSalary() {
         double number = month.getNumber();
@@ -79,9 +92,22 @@ public class Worker extends Person implements AbleToCalculatePension {
         return pensionFund.calculatePension(experience, minSalaryIncreasedPerKid, maxSalary);
     }
 
+    public double calculateBestPension() {
+        int experience = getAge() - 18;
+        double minSalaryIncreasedPerChild = minSalary + getKids().size() * 200;
+        double topPayment = 0;
+        for (PensionFund fund : pensionFundSet) {
+            double result = fund.calculatePension(experience, minSalaryIncreasedPerChild, maxSalary);
+            if (result > topPayment) {
+                topPayment = result;
+            }
+        }
+        return topPayment;
+    }
+
     public void showCompaniesPersonWorked () {
         System.out.println("Я работал в следующих компаниях:");
-        for (Company company : job) {
+        for (Company company : previousJob) {
             System.out.println(company.getName());
         }
     }
@@ -98,7 +124,7 @@ public class Worker extends Person implements AbleToCalculatePension {
         if (Double.compare(worker.maxSalary, maxSalary) != 0) return false;
         if (month != worker.month) return false;
         if (sex != worker.sex) return false;
-        return Objects.equals(job, worker.job);
+        return Objects.equals(previousJob, worker.previousJob);
     }
 
     @Override
@@ -111,7 +137,7 @@ public class Worker extends Person implements AbleToCalculatePension {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (month != null ? month.hashCode() : 0);
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
-        result = 31 * result + (job != null ? job.hashCode() : 0);
+        result = 31 * result + (previousJob != null ? previousJob.hashCode() : 0);
         return result;
     }
 
@@ -122,7 +148,7 @@ public class Worker extends Person implements AbleToCalculatePension {
                 ", maxSalary=" + maxSalary +
                 ", month=" + month +
                 ", sex=" + sex +
-                ", job=" + job +
+                ", job=" + previousJob +
                 '}';
     }
 }

@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Company {
+public class Company implements Comparable<Company>{
   private String nameOfCompany;
 
     public Company(String name) {
@@ -15,6 +15,16 @@ public class Company {
         this.nameOfCompany = name;
     }
 
+@Override
+public int compareTo (Company o) {
+        if (nameOfCompany.length() > o.getName().length()) {
+            return 1;
+        }
+        if (nameOfCompany.length() < o.getName().length()){
+            return -1;
+        }
+        return 0;
+}
 
     @Override
     public boolean equals(Object o) {
