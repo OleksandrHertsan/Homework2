@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MainForPerson {
 
@@ -32,6 +29,24 @@ public class MainForPerson {
         System.out.println(firstResult);
         double secondResult = secondWorker.calculateBestPension();
         System.out.println(secondResult);
+
+        Company firstCompany = new Company("Xiaomi");
+        Map<String, String> xiaomiHoliday = new HashMap<>();
+        xiaomiHoliday.put("Новый год", "1 января");
+        xiaomiHoliday.put("День рождения владельца", "8 июня");
+        firstCompany.setHolidays(xiaomiHoliday);
+
+        System.out.println(firstCompany);
+
+
+        Company secondCompany = new Company("Microsoft");
+        Map<String, String> microsoftHolidays = new HashMap<>();
+        microsoftHolidays.put("Пасха", "14 апреля");
+        microsoftHolidays.put("Рождество", "25 декабря");
+        microsoftHolidays.put("Всемирный день кошек", "8 июня");
+        secondCompany.setHolidays(microsoftHolidays);
+
+        System.out.println(secondCompany);
 //        Worker firstWorker = new Worker("Alex");
 //        List<Kids> firsListOfKids = new ArrayList<>();
 //        firsListOfKids.add(new Kids("Veronika"));

@@ -1,7 +1,9 @@
+import java.util.Map;
 import java.util.Objects;
 
-public class Company implements Comparable<Company>{
-  private String nameOfCompany;
+public class Company implements Comparable<Company> {
+    private String nameOfCompany;
+    private Map<String, String> holidays;
 
     public Company(String name) {
         this.nameOfCompany = name;
@@ -15,16 +17,25 @@ public class Company implements Comparable<Company>{
         this.nameOfCompany = name;
     }
 
-@Override
-public int compareTo (Company o) {
+    public Map<String, String> getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(Map<String, String> holidays) {
+        this.holidays = holidays;
+    }
+
+    @Override
+    public int compareTo(Company o) {
         if (nameOfCompany.length() > o.getName().length()) {
             return 1;
         }
-        if (nameOfCompany.length() < o.getName().length()){
+       else if (nameOfCompany.length() < o.getName().length()) {
             return -1;
         }
-        return 0;
-}
+       else
+           return 0;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -33,7 +44,8 @@ public int compareTo (Company o) {
 
         Company company = (Company) o;
 
-        return Objects.equals(nameOfCompany, company.nameOfCompany);
+        if (!Objects.equals(nameOfCompany, company.nameOfCompany)) return false;
+        return Objects.equals(holidays, company.holidays);
     }
 
     @Override
@@ -45,6 +57,7 @@ public int compareTo (Company o) {
     public String toString() {
         return "Company{" +
                 "name='" + nameOfCompany + '\'' +
+                ", holidays=" + holidays +
                 '}';
     }
 }

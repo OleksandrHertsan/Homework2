@@ -65,6 +65,8 @@ public abstract class Person {
         System.out.println("I have " + kids.size() + " kids");
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,6 +82,8 @@ public abstract class Person {
         System.out.println(weight);
 
     }
+
+
 
     public void goToWork() {
         if (age < 18 || age > 70) {
@@ -109,7 +113,15 @@ public abstract class Person {
                 ", kids=" + kids +
                 '}';
     }
-
+    public int compareTo(Person o) {
+        if (name.length() == o.getName().length()) {
+            return Integer.compare(age, o.getAge());
+        }
+        else if (name.length() < o.getName().length()) {
+            return -1;
+        }
+        return 1;
+    }
     }
 
 
