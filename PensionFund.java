@@ -13,6 +13,26 @@ public class PensionFund {
     private TypeOfPension type;
     private List<String> currencies;
 
+    private String name;
+
+    private TypeOfPension typeOfPension;
+    public String getFundName() {
+        return name;
+    }
+
+    public void setFundName(String name) {
+        this.name = name;
+    }
+
+    public TypeOfPension getFundType() {
+        return typeOfPension;
+    }
+
+    public void setFundType(TypeOfPension fundType) {
+        this.typeOfPension = fundType;
+    }
+
+
 
     public List<String> getCurrencies() {
         return currencies;

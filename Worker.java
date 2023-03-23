@@ -17,6 +17,12 @@ public class Worker extends Person implements AbleToCalculatePension {
         super(name);
     }
 
+    public Worker(String age, Sex sex) {
+        super(age);
+        this.sex = sex;
+    }
+
+
 
     public double getMinSalary() {
         return minSalary;
