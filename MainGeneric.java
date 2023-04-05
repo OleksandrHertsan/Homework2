@@ -3,7 +3,7 @@ public class MainGeneric {
 
         Worker worker = new Worker("Alex");
 
-        DataBaseWriter<Person> database = new DataBaseWriter<>("DB", worker);
+        DataBaseWriter<Person> database = new DataBaseWriter<>("Worker", worker);
         database.save();
 
     }
